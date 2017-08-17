@@ -2,7 +2,13 @@ package ru.ansa.moneytransfer.rest.post;
 
 import java.io.Serializable;
 
-
+/**
+ * Entity for money transfer method.
+ *
+ * @author Anton Safronov
+ * @see <a href="https://github.com/antonsafronov/restmoneytransfer">Source Code</a>
+ * @since 1.0
+ */
 public class TransferInfo implements Serializable {
 
     private String accountFromId;

@@ -9,7 +9,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import static org.apache.ignite.cache.CacheAtomicityMode.ATOMIC;
+import static org.apache.ignite.cache.CacheAtomicityMode.TRANSACTIONAL;
 
 @WebListener
 public class StartIgnitionServer implements ServletContextListener {
@@ -22,7 +22,7 @@ public class StartIgnitionServer implements ServletContextListener {
 
         CacheConfiguration cfg = new CacheConfiguration();
         cfg.setName(MoneyTransferApp.CACHE);
-        cfg.setAtomicityMode(ATOMIC);
+        cfg.setAtomicityMode(TRANSACTIONAL);
 
         igniteConfiguration.setTransactionConfiguration(txCfg);
         igniteConfiguration.setCacheConfiguration(cfg);

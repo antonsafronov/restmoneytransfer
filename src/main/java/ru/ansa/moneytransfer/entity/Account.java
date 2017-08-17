@@ -1,6 +1,7 @@
 package ru.ansa.moneytransfer.entity;
 
 import org.joda.money.Money;
+import ru.ansa.moneytransfer.exceptions.NotEnoughMoney;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -30,22 +31,20 @@ public class Account implements Serializable {
         this.ammount = ammount;
     }
 
-    public Money deposit(String addMoney){
-        Money depositMoney = Money.parse(addMoney);
+    public Money deposit(Money depositMoney){
         ammount = ammount.plus(depositMoney);
         return ammount;
     }
 
-    public Money withdraw(String minusMoney){
-        Money withdraw = Money.parse(minusMoney);
-        if(enoughMoneyWithdraw(minusMoney)){
-            ammount = ammount.minus(withdraw);
+    public Money withdraw(Money withdraw) throws NotEnoughMoney {
+        if(enoughMoneyWithdraw(withdraw)){
+            return ammount.minus(withdraw);
         }
-        return ammount;
+        throw new NotEnoughMoney();
     }
 
-    public boolean enoughMoneyWithdraw(String minusMoney){
-        return Money.parse(minusMoney).isLessThan(ammount);
+    public boolean enoughMoneyWithdraw(Money minusMoney){
+        return minusMoney.isLessThan(ammount);
     }
 
     @Override
